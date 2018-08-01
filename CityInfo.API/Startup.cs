@@ -39,7 +39,7 @@ namespace CityInfo.API
             services.AddTransient<IMailService, CloudMailService>();
 #endif
 
-            var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CityInfoDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            var connectionString = Configuration["connectionStrings:cityInfoDBConnectionString"];
             services.AddDbContext<CityInfoContext>(o => o.UseSqlServer(connectionString));  // register CityInfoContext - it has the Scoped lifetime (created once per web request)
 
             //.AddJsonOptions(o =>
