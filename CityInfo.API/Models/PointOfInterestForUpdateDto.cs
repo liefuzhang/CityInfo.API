@@ -10,7 +10,6 @@ namespace CityInfo.API.Models
     {
         [Required(ErrorMessage = "You should provide a value")]
         [MaxLength(50)]
-
         public string Name { get; set; }
 
         [MaxLength(200)]

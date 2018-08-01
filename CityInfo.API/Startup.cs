@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CityInfo.API.Entities;
 using CityInfo.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -36,6 +38,10 @@ namespace CityInfo.API
 #else
             services.AddTransient<IMailService, CloudMailService>();
 #endif
+
+            var connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=CityInfoDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            services.AddDbContext<CityInfoContext>(o => o.UseSqlServer(connectionString));  // register CityInfoContext - it has the Scoped lifetime (created once per web request)
+
             //.AddJsonOptions(o =>
             //{
             //    if (o.SerializerSettings.ContractResolver != null)
